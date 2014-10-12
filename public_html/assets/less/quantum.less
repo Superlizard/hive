@@ -1,0 +1,433 @@
+.transition(@secs) {
+	-webkit-transition: all @secs;
+	-moz-transition: all @secs;
+	-ms-transition: all @secs;
+	-o-transition: all @secs;
+	transition: all @secs;
+}
+.blur(@blur-radius) {
+	filter:blur(@blur-radius);
+	-o-filter:blur(@blur-radius);
+	-ms-filter:blur(@blur-radius);
+	-moz-filter:blur(@blur-radius);
+	-webkit-filter:blur(@blur-radius);
+}
+.center {
+	text-align: center;
+}
+.left {
+	text-align: left;
+}
+.entry-flow-hidden {
+	display: none; 
+}
+.fadeInRight {
+	display: block; 
+}
+
+footer {
+	.container {
+		img {
+			display: block; 
+			max-width: 150px; 
+			margin: 12px auto 0; 
+		}
+	}
+}
+
+
+
+@sidebar-width: 300px;
+@transition-time: 0.4s;
+
+.navbar {
+	&.navbar-sidebar {
+		.transition(@transition-time); 
+
+		background: #22222C; 
+		position: fixed; 
+		width: @sidebar-width; 
+		top: 0; 
+		left: 0; 
+		height: 100%; 
+		padding: 0; 
+		z-index: 9001; 
+
+		.navbar-inner {
+			position: relative;
+			overflow-y: auto;
+			height: calc(100% - 40px); 
+			padding-top: 32px;
+
+			.navbar-sidebar-brand {
+				padding: 6px 15px; 
+				margin: 20px 0 32px; 
+				display: block; 
+				text-align: center;
+
+				img {
+					max-width: 100px; 
+					height: auto; 
+				}
+			}
+
+			div.sidebar-login {
+				&.dropdown {
+					text-align: center;
+
+					a.dropdown-toggle {
+						display: block; 
+						padding: 6px 0; 
+						margin-bottom: 32px; 
+					}
+
+					ul.dropdown-menu {
+						min-width: 100%; 
+						text-align: center;
+						padding: 0; 
+						margin: 0; 
+
+						li {
+							a {
+								padding: 12px 0; 
+							}
+						}
+					}
+				}
+			}
+
+			ul.navbar-sidebar-nav {
+				list-style: none;
+				padding: 0;
+				margin: 0;
+
+				li {
+
+					&.active {
+						a {
+							color: @navbar-inverse-color;
+
+							&:hover {
+								color: lighten(@navbar-inverse-color, 10%);
+							}
+						}
+					}
+
+					a {
+						display: block;
+						margin-left: 14px;
+						padding-left: 56px;
+						text-decoration: none;
+						line-height: 48px;
+						font-weight: 100;	
+						color: darken(@navbar-inverse-color, 50%);
+
+						&:hover {
+							color: darken(@navbar-inverse-color, 30%);
+						}
+
+						.glyphicon {
+							width: 24px; 
+							color: lighten(@brand-secondary, 20%); 
+						}					
+					}
+				}
+			}
+		}
+	}
+}
+
+.outer-container {
+	width: 100%; 
+	position: relative;
+	overflow-x: hidden;
+
+	.canvas {
+		.transition(@transition-time); 
+
+		margin-left: @sidebar-width;
+		position: relative;
+		width: 100%; 
+		padding: 60px 0 60px; 
+	}
+}
+
+.work-container {
+	padding: 12px 0; 
+	margin-top: 12px; 
+
+	.row {
+		padding: 12px 0; 
+		cursor: pointer;
+
+		&:hover {
+			background: lighten(@body-bg, 2%);
+		}
+
+		&.row-header {
+			padding: 24px 0; 
+			background: lighten(@body-bg, 5%);
+		}
+
+		&.row-content {
+			p, ol {
+				color: @brand-primary; 
+			}
+
+			ol {
+				margin-left: 0; 
+			}
+		}
+	}
+}
+
+@media all and(max-width: (@screen-sm-min + 1)) {
+	@sidebar-width: 220px;
+
+	.outer-container {
+		.canvas {
+			left: 0; 
+			margin-left: 0;
+
+			.navbar {
+				&.navbar-sidebar {
+					width: @sidebar-width;
+					left: -@sidebar-width;
+
+					.navbar-inner {
+						ul.navbar-sidebar-nav {
+							li {
+								a {
+									padding-left: 6px; 
+								}
+							}
+						}
+					}
+				}
+			}
+
+			&.sidebar-active {
+				left: @sidebar-width; 
+
+				.navbar-fixed-top, .navbar-fixed-bottom  {
+					left: @sidebar-width; 
+				}
+
+				.navbar {
+					&.navbar-sidebar {
+						left: 0; 
+					}
+				}
+			}
+		}
+	}	
+}
+
+
+
+
+
+/*==========================================
+	HIVE LESS, delete when done (or keep)
+==========================================*/
+body {
+	width: 100%; 
+	height: 100%; 
+	padding: 0; 
+	font-weight: 300; 
+}
+
+img {
+	&.img-medium {
+		max-width: 140px; 
+		height: auto; 
+	}
+}
+
+.entry {
+	padding: 0; 
+}
+
+.entry-hidden {
+	display: none; 
+}
+
+.right {
+	text-align: right;
+}
+
+.entry-nav {
+	padding-top: 24px; 
+
+	p {
+		&.btn-back {
+			display: inline-block;
+			padding: 6px 4px; 
+			border-radius: 2px; 
+			border: 1px solid #ccc; 
+			font-size: 11px; 
+			cursor: pointer;
+
+			&:hover {
+				background: #efefef; 
+			}
+		}
+
+		&.disabled {
+			opacity: 0.2; 
+			cursor: default;
+		}
+	}
+}
+
+#single_object {
+	margin-top: 24px; 
+	border-top: 1px solid darken(@body-bg, 5%); 
+
+	.row {
+		padding: 12px 0; 
+		border-bottom: 1px solid darken(@body-bg, 5%); 
+	}
+}
+
+@icon-bar-color: @brand-danger;
+.navbar {
+	&.navbar-fixed-top, &.navbar-fixed-bottom {
+		.transition(@transition-time); 
+		width: 100%; 
+
+		.navbar-inner {
+			text-align: center;
+			height: 60px; 
+			position: relative;
+
+			&.navbar-mobile {
+				display: none; 
+			}
+
+			button.navbar-toggle {
+				float: left; 
+				margin-left: 10px; 
+				margin-right: 10px; 
+				border: none; 
+
+				.icon-bar {
+					background-color: @icon-bar-color; 
+				}
+
+				&:focus {
+					background: none; 
+
+					.icon-bar {
+						background-color: @icon-bar-color; 
+					}
+				}
+
+				&:hover {
+					background: none;
+
+					.icon-bar {
+						background-color: darken(@icon-bar-color, 10%); 
+					}
+				}
+			}		
+
+			a.navbar-brand {
+				color: lighten(@brand-success, 10%);
+				padding: 16px 15px; 
+
+				&:hover {
+					color: lighten(@brand-success, 20%); 
+				}
+			}
+		}
+	}
+}
+
+.navbar {
+	&.navbar-fixed-bottom {
+		.navbar-inner {
+
+			ul.navbar-icons {
+				text-align: center;
+				margin: 0; 
+				padding: 0; 
+				list-style: none; 
+
+				li {
+					display: inline-block;
+					width: 32.5%; 
+
+					a {
+						display: block; 
+						padding: 4px 0; 
+
+						&:hover {
+							text-decoration: none; 
+						}
+
+						.glyphicon {
+							font-size: 24px; 
+						}
+					}
+
+					&.active {
+						a {
+							color: lighten(@link-color, 25%);
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+.favorite-element {
+	margin-bottom: 32px; 
+	
+	h6 {
+		margin-bottom: 0.2em; 
+		padding-left: 4px; 
+		font-size: 16px; 
+		color: @brand-danger; 
+	}
+
+	ul.list {
+
+		&.list-vertical {
+			margin-top: 8px;
+		}
+	}	
+}
+
+ul.list {
+	padding: 0; 
+	margin: 24px 0 12px; 
+	list-style: none; 
+
+	&.list-vertical {
+		border-top: 1px solid darken(@body-bg, 5%); 
+
+		input {
+			box-shadow: none; 
+		}
+
+		li {
+			a {
+				display: block; 
+				padding: 12px 4px;
+				border-bottom: 1px solid darken(@body-bg, 5%); 
+
+				&:hover {
+					background: darken(@body-bg, 3%);
+				}
+
+				.glyphicon {
+					&.glyphicon-chevron-right {
+						float: right;
+					}
+				}
+			}
+		}
+	}
+}

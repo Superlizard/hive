@@ -1,0 +1,6 @@
+vendor
+bootstrap/start.php
+app/config
+app/storage/*
+public_html/node_modules
+public_html/packages
