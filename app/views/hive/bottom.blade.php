@@ -1,6 +1,7 @@
 <div class="navbar navbar-inverse navbar-fixed-bottom">
 	<div class="navbar-inner">
 		<ul class="navbar-icons">
+			<li><a href="#" data-href="status" data-title="Status"><span class="glyphicon glyphicon-flash"></span><br>Status</a></li>		
 			<li class="active"><a href="#" data-href="content" data-title="Fjärrstyrning"><span class="glyphicon glyphicon-dashboard"></span><br>Fjärrstyr</a></li>
 			<li><a href="#" data-href="favorites" data-title="Favoriter"><span class="glyphicon glyphicon-heart"></span><br>Favoriter</a></li>
 			<li><a href="#" data-href="settings" data-title="Inställningar"><span class="glyphicon glyphicon-cog"></span><br>Inställningar</a></li>

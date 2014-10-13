@@ -5,7 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<title>
 			@section('title')
-			Administration
+			HIVE UI
 			@show
 		</title>
 		<meta name="token" content="{{ Session::token() }}">
@@ -75,6 +75,11 @@
 		{{ HTML::script('assets/js/vendor/jquery.nouislider.min.js'); }}
 		{{ HTML::script('assets/js/vendor/modernizr.js'); }}
 		{{ HTML::script('assets/js/app.js'); }}
+
+		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+		<script>
+			google.load("visualization", "1", {packages:["corechart"]});
+		</script>
 
 		<script>
 			function initNavbar() {

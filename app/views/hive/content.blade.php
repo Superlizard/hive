@@ -117,6 +117,7 @@ if(typeof(Storage) !== "undefined") {
 	console.log("*** Localstorage not supported."); 
 }
 
+$("#back").hide(); 
 $(".new-form").hide(); 
 $("#new-room").on('click', function() {
 	$(this).fadeOut(200); 
@@ -132,7 +133,7 @@ $("#add-room").on('click', function() {
 	var room_name = $("#room-name").val(); 
 
 	if(room_name.length == 0) {
-		alert("Du ange ett namn på rummet."); 
+		alert("Hallå där! Du måste lägga till ett namn på rummet."); 
 		return; 
 	}
 
@@ -158,6 +159,7 @@ $("#add-room").on('click', function() {
 	localStorage.setItem('roomList', JSON.stringify(roomList)); 
 
 	$("#room-list").prepend(room); 
+	$(".new-form").fadeOut(100); 
 }); 
 
 
@@ -171,6 +173,7 @@ function buildRoom(room_name) {
 	var room = lookup[room_name];
 	current_room = room; 
 	if(room) {
+		$("#back").fadeIn(100); 
 		$("#back-text").html(current_room.name); 
 		$("#back").removeClass('disabled'); 
 		$("#rooms").fadeOut(100); 
@@ -205,7 +208,7 @@ function buildRoom(room_name) {
 	$("#back").on('click', function() {
 		$("#objects").fadeOut(100); 
 		$("#rooms").delay(100).fadeIn(200).addClass('animated fadeInRight'); 
-		$("#back-text").html("Tillbaka"); 
+		$(this).fadeOut(100); 
 	}); 
 }
 
@@ -224,7 +227,7 @@ $("#add-object").on('click', function() {
 	var object_name = $("#object-name").val(); 
 
 	if(object_name.length == 0) {
-		alert("Du ange ett namn på objektet."); 
+		alert("Hallå där! Du måste ange ett namn på objektet."); 
 		return; 
 	}
 
@@ -254,6 +257,7 @@ $("#add-object").on('click', function() {
 	localStorage.setItem('roomList', JSON.stringify(roomList)); 
 
 	$("#object-list").prepend(object); 
+	$(".new-form-object").fadeOut(200); 
 }); 
 
 function buildObject(object) {
@@ -289,10 +293,10 @@ function buildObject(object) {
 		$(this).on('click', function() {
 			$("#objects").fadeOut(100); 
 			$("#rooms").delay(100).fadeIn(200).addClass('animated fadeInRight');
-			$("#back-text").html("Tillbaka"); 
 			$("#back").addClass('disabled'); 
 
 			$(this).unbind('click'); 
+			$(this).hide(); 
 		}); 
 	}); 	
 

@@ -44,6 +44,15 @@ class HiveController extends BaseController {
 		} 
 	}
 
+	public function getStatus() {
+		if(Sentry::check()) {
+			return array(
+				'view' => View::make('hive/status')->render(),
+				'status' => 'logged-in'
+			);  
+		} 
+	}	
+
 	public function getSettings() {
 		if(Sentry::check()) {
 			return array(
