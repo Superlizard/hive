@@ -1,15 +1,3 @@
-<article class="entry animated fadeInRight" id="nav">
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-sm-12">
-				<div class="entry-body entry-nav">
-					<p href="#" class="btn-back" id="back"><span class="glyphicon glyphicon-chevron-left"></span> <span id="back-text">Tillbaka</span></p>
-				</div>
-			</div>
-		</div>
-	</div>
-</article>
-
 <article class="entry animated fadeInRight" id="favorites-container">
 	<div class="container-fluid">
 		<div class="row">
@@ -23,8 +11,6 @@
 </article>
 
 <script>
-	$("#back-text").html("Tillbaka"); 
-	$("#back").addClass('disabled'); 
 
 	if(typeof(Storage) !== "undefined") {
 		var favorites = localStorage.getItem('favorites'); 

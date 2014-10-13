@@ -4,6 +4,12 @@
 			<div class="col-sm-12">
 				<div class="entry-body entry-nav">
 					<p href="#" class="btn-back" id="back"><span class="glyphicon glyphicon-chevron-left"></span> <span id="back-text">Tillbaka</span></p>
+
+					<p href="#" class="btn-back pull-right" id="add-room"><span class="glyphicon glyphicon-plus"></span> Lägg till rum</span></p>					
+
+					<p href="#" class="btn-back pull-right" id="add-object"><span class="glyphicon glyphicon-plus"></span> Lägg till objekt</span></p>					
+
+					<p href="#" class="btn-back pull-right" id="delete-object"><span class="glyphicon glyphicon-trash"></span> Ta bort objekt</span></p>					
 				</div>
 			</div>
 		</div>
@@ -17,15 +23,6 @@
 				<div class="entry-body">
 					<ul class="list list-vertical" id="room-list">
 					</ul>
-
-					<ul class="list list-vertical">
-						<li class="new-form">
-							<input type="text" placeholder="Vilket rum är det?" class="form-control" style="margin-bottom: 4px;" id="room-name">
-							<button type="button" class="btn btn-primary btn-block" id="add-room">Lägg till rum</button>
-							<button type="button" class="btn btn-danger btn-block" id="cancel-room">Avbryt</button>
-						</li>
-						<li class="new"><a href="#" id="new-room"><span class="glyphicon glyphicon-plus-sign"></span> Lägg till rum <span class="glyphicon glyphicon-chevron-right"></span></a></li>
-					</ul>
 				</div>                      
 			</div>
 		</div>
@@ -38,14 +35,6 @@
 			<div class="col-sm-12">
 				<div class="entry-body">
 					<ul class="list list-vertical" id="object-list">
-					</ul>
-					<ul class="list list-vertical">
-						<li class="new-form-object">
-							<input type="text" placeholder="Vad är det för objekt?" class="form-control" style="margin-bottom: 4px;" id="object-name">
-							<button type="button" class="btn btn-primary btn-block" id="add-object">Lägg till objekt</button>
-							<button type="button" class="btn btn-danger btn-block" id="cancel-object">Avbryt</button>
-						</li>
-						<li class="new"><a href="#" id="new-object"><span class="glyphicon glyphicon-plus-sign"></span> Lägg till objekt <span class="glyphicon glyphicon-chevron-right"></span></a></li>
 					</ul>
 				</div>                      
 			</div>
@@ -74,7 +63,7 @@
 
 		<div class="row">
 			<div class="col-xs-12" id="favorites">
-				<p class="btn btn-success" id="add-favorite">Lägg till som favorit</p>
+				<p class="btn btn-success btn-block btn-sm" id="add-favorite">Lägg till som favorit</p>
 			</div>				
 		</div>		
 	</div>
@@ -118,21 +107,14 @@ if(typeof(Storage) !== "undefined") {
 }
 
 $("#back").hide(); 
-$(".new-form").hide(); 
-$("#new-room").on('click', function() {
-	$(this).fadeOut(200); 
-	$(".new-form").fadeIn(200); 
-});
-
-$("#cancel-room").on('click', function() {
-	$(".new-form").fadeOut(200); 
-	$("#new-room").fadeIn(200); 
-}); 
+$("#add-object").hide(); 
+$("#delete-object").hide(); 
 
 $("#add-room").on('click', function() {
-	var room_name = $("#room-name").val(); 
+	//var room_name = $("#room-name").val(); 
+	var room_name = prompt('Vilket rum är det?'); 
 
-	if(room_name.length == 0) {
+	if(room_name.length == 0) {	
 		alert("Hallå där! Du måste lägga till ett namn på rummet."); 
 		return; 
 	}
@@ -159,7 +141,6 @@ $("#add-room").on('click', function() {
 	localStorage.setItem('roomList', JSON.stringify(roomList)); 
 
 	$("#room-list").prepend(room); 
-	$(".new-form").fadeOut(100); 
 }); 
 
 
@@ -176,6 +157,10 @@ function buildRoom(room_name) {
 		$("#back").fadeIn(100); 
 		$("#back-text").html(current_room.name); 
 		$("#back").removeClass('disabled'); 
+
+		$("#add-room").hide(); 
+		$("#add-object").fadeIn(200); 
+
 		$("#rooms").fadeOut(100); 
 		$("#objects").fadeIn(200).addClass('animated fadeInRight'); 
 
@@ -208,6 +193,10 @@ function buildRoom(room_name) {
 	$("#back").on('click', function() {
 		$("#objects").fadeOut(100); 
 		$("#rooms").delay(100).fadeIn(200).addClass('animated fadeInRight'); 
+		
+		$("#add-room").fadeIn(); 
+		$("#add-object").hide(); 
+
 		$(this).fadeOut(100); 
 	}); 
 }
@@ -224,7 +213,7 @@ $("#cancel-object").on('click', function() {
 }); 
 
 $("#add-object").on('click', function() {
-	var object_name = $("#object-name").val(); 
+	var object_name = prompt("Vad är det för objekt?"); 
 
 	if(object_name.length == 0) {
 		alert("Hallå där! Du måste ange ett namn på objektet."); 
@@ -257,13 +246,14 @@ $("#add-object").on('click', function() {
 	localStorage.setItem('roomList', JSON.stringify(roomList)); 
 
 	$("#object-list").prepend(object); 
-	$(".new-form-object").fadeOut(200); 
 }); 
 
 function buildObject(object) {
 	$("#objects").fadeOut(100); 
 	$("#back-text").html(object.object_name); 
 	$("#single_object").delay(100).fadeIn(200).addClass('animated fadeInRight'); 
+	$("#add-object").hide(); 
+	$("#delete-object").fadeIn(200); 
 
 	$("#intensity").noUiSlider({
 		start: [object.intensity]
@@ -307,6 +297,30 @@ function buildObject(object) {
 		}
 	})
 
+	$("#delete-object").unbind('click'); 
+	$("#delete-object").on('click', function() {
+		var delete_object = confirm("Vill du verkligen ta bort objektet?"); 
+
+		if(delete_object) {
+			localStorage.setItem('roomList', JSON.stringify(roomList)); 
+			$.each(roomList, function(index, val) {
+				$.each(val.objects, function(index_obj, object_list) {
+					if(object_list.object_name == object.object_name) {
+						console.log(roomList); 
+						roomList[index].objects.splice(index_obj, 1); 
+						localStorage.setItem('roomList', JSON.stringify(roomList)); 
+						console.log(roomList); 
+
+						$("#delete-object").hide(); 
+
+						$("#single_object").fadeOut(100); 
+						$("#objects").delay(100).fadeIn(200).addClass('animated fadeInRight'); 
+						buildRoom(current_room.name);  
+					}
+				}); 
+			}); 
+		}
+	}); 
 
 	var lookup = {};
 	for (var i = 0, len = favorites.length; i < len; i++) {

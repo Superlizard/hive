@@ -1,6 +1,17 @@
-<div id="chart_div" style="width: 100%; height: 500px;"></div>
+<div id="chart_div" class="animated fadeInRight" style="width: 100%; height: 500px;"></div>
+
+<article class="entry animated fadeInRight" id="no-objects">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xs-12 center">
+				<h4>Lägg till åtminstone ett objekt för att kunna använda den här funktionen.</h4>
+			</div>				
+		</div>
+	</div>
+</article>
 
 <script type="text/javascript">
+$("#no-objects").hide(); 
 
 if(typeof(Storage) !== "undefined") {
 	var roomList = localStorage.getItem('roomList'); 
@@ -24,15 +35,20 @@ if(typeof(Storage) !== "undefined") {
 	console.log("*** Localstorage not supported."); 
 }
 
-console.log(objects); 
-var data = google.visualization.arrayToDataTable(objects);
+if(objects.length > 1) {
+	console.log(objects); 
+	var data = google.visualization.arrayToDataTable(objects);
 
-var options = {
-	title: 'Elförbrukning/dag',
-	hAxis: {title: 'Datum', titleTextStyle: {color: '#ccc'}}, 
-	vAxis: {title: 'kWh', titleTextStyle: {color: '#ccc'}}
-};
+	var options = {
+		title: 'Elförbrukning/dag',
+		hAxis: {title: 'Datum', titleTextStyle: {color: '#ccc'}}, 
+		vAxis: {title: 'kWh', titleTextStyle: {color: '#ccc'}}
+	};
 
-var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
-chart.draw(data, options);
+	var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+	chart.draw(data, options);
+} else {
+	$("#chart_div").hide(); 
+	$("#no-objects").fadeIn(400); 
+}
 </script>
